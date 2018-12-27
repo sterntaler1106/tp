@@ -1,5 +1,6 @@
 package com.example.beerbackend.beer;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ public class BeerController {
   }
 
   @GetMapping("/good-beers")
+  @CrossOrigin(origins = "http://localhost:3000")
   public Collection<Beer> goodBeers() {
     return repository.findAll().stream()
             .filter(this::isGreat)
