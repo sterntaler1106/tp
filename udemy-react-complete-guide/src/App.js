@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 // import './App.css' // ohne CSS Modules
 import classes from './App.css'; // mit CSS Modules
 import Person from './Person/Person.js';
-import Uebung1 from './Uebung1/Uebung1.js';
-import Uebung2 from './Uebung2/Uebung2.js';
 
 class App extends Component {
     state = {
@@ -12,9 +10,7 @@ class App extends Component {
             {id: '1', name: 'Manu', age: 29},
             {id: '2', name: 'Stephanie', age: 26}
         ],
-        showPersons: false,
-        showUebung1: false,
-        showUebung2: false
+        showPersons: false
     }
 
     deletePersonHandler = personIndex => {
@@ -82,9 +78,6 @@ class App extends Component {
                 <p className={assignedClasses.join(' ')}>This is really working!</p>
                 <button className={btnClass} onClick={this.togglePersons}>Toggle Persons</button>
                 {persons}
-
-                <Uebung1 show={this.state.showUebung1}/>
-                <Uebung2 show={this.state.showUebung2}/>
             </div>
         );
     }
