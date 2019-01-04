@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 // import './App.css' // ohne CSS Modules
 import classes from './App.css'; // mit CSS Modules
 import Person from './Person/Person.js';
-
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary.js'
 import Uebung1 from './Uebung1/Uebung1.js';
 import Uebung2 from './Uebung2/Uebung2.js';
 
 class App extends Component {
     state = {
         persons: [
-            {name: 'Max', age: 28},
-            {name: 'Manu', age: 29},
-            {name: 'Stephanie', age: 26}
+            {id: '0', name: 'Max', age: 28},
+            {id: '1', name: 'Manu', age: 29},
+            {id: '2', name: 'Stephanie', age: 26}
         ],
         showPersons: false,
         showUebung1: false,
@@ -54,13 +54,16 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <div>
-                    {this.state.persons.map((person, index) => <Person
-                        key={index}
-                        name={person.name}
-                        age={person.age}
-                        click={() => this.deletePersonHandler(person.id)}
-                        changed={(event) => this.nameChangedHandler(event, person.id)}
-                    />)}
+                    {this.state.persons.map((person, index) => {
+                        return <ErrorBoundary key={person.id}>
+                            <Person
+                                name={person.name}
+                                age={person.age}
+                                click={() => this.deletePersonHandler(person.id)}
+                                changed={(event) => this.nameChangedHandler(event, person.id)}
+                            />
+                        </ErrorBoundary>
+                    })}
                 </div>
             );
 
@@ -77,14 +80,14 @@ class App extends Component {
 
 
         return (
-                <div className={classes.App}>
-                    <p className={assignedClasses.join(' ')}>This is really working!</p>
-                    <button className={btnClass} onClick={this.togglePersons}>Toggle Persons</button>
-                    {persons}
+            <div className={classes.App}>
+                <p className={assignedClasses.join(' ')}>This is really working!</p>
+                <button className={btnClass} onClick={this.togglePersons}>Toggle Persons</button>
+                {persons}
 
-                    <Uebung1 show={this.state.showUebung1}/>
-                    <Uebung2 show={this.state.showUebung2}/>
-                </div>
+                <Uebung1 show={this.state.showUebung1}/>
+                <Uebung2 show={this.state.showUebung2}/>
+            </div>
         );
     }
 }
