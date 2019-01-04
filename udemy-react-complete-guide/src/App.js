@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import './App.css';
+// import './App.css' // ohne CSS Modules
+import classes from './App.css'; // mit CSS Modules
 import Person from './Person/Person.js';
 
 import Uebung1 from './Uebung1/Uebung1.js';
@@ -47,17 +48,8 @@ class App extends Component {
     }
 
     render() {
-
-        const style = {
-            backgroundColor: 'green',
-            color: 'white',
-            font: 'inherit',
-            border: '1px solid blue',
-            padding: '8px',
-            cursor: 'pointer'
-        };
-
         let persons = null;
+        let btnClass = '';
 
         if (this.state.showPersons) {
             persons = (
@@ -72,22 +64,22 @@ class App extends Component {
                 </div>
             );
 
-            style.backgroundColor = 'red';
+            btnClass = classes.Red;
         }
 
-        let classes = [];
+        let assignedClasses = [];
         if (this.state.persons.length <= 2) {
-            classes.push('red');
+            assignedClasses.push(classes.red);
         }
         if (this.state.persons.length <= 1) {
-            classes.push('bold');
+            assignedClasses.push(classes.bold);
         }
 
 
         return (
-                <div className="App">
-                    <p className={classes.join(' ')}>This is really working!</p>
-                    <button onClick={this.togglePersons} style={style}>Toggle Persons</button>
+                <div className={classes.App}>
+                    <p className={assignedClasses.join(' ')}>This is really working!</p>
+                    <button className={btnClass} onClick={this.togglePersons}>Toggle Persons</button>
                     {persons}
 
                     <Uebung1 show={this.state.showUebung1}/>
