@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 // import './App.css' // ohne CSS Modules
 import classes from './App.css'; // mit CSS Modules
 import Person from './Person/Person.js';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary.js'
 import Uebung1 from './Uebung1/Uebung1.js';
 import Uebung2 from './Uebung2/Uebung2.js';
 
@@ -54,15 +53,14 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <div>
-                    {this.state.persons.map((person, index) => {
-                        return <ErrorBoundary key={person.id}>
-                            <Person
+                    {this.state.persons.map((person) => {
+                        return <Person
+                                key={person.id}
                                 name={person.name}
                                 age={person.age}
                                 click={() => this.deletePersonHandler(person.id)}
                                 changed={(event) => this.nameChangedHandler(event, person.id)}
                             />
-                        </ErrorBoundary>
                     })}
                 </div>
             );
