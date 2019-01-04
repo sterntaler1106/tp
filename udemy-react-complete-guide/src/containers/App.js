@@ -1,21 +1,18 @@
 import React, {Component} from 'react';
-// import './App.css' // ohne CSS Modules
-import classes from './App.css'; // mit CSS Modules
-import Person from './Person/Person.js';
+import classes from './App.css';
+import Persons from "../components/Persons/Persons";
 
 class App extends Component {
     state = {
         persons: [
-            {id: '0', name: 'Max', age: 28},
-            {id: '1', name: 'Manu', age: 29},
-            {id: '2', name: 'Stephanie', age: 26}
+            {id: 'foo', name: 'Max', age: 28},
+            {id: 'bar', name: 'Manu', age: 29},
+            {id: 'baz', name: 'Stephanie', age: 26}
         ],
         showPersons: false
     }
 
     deletePersonHandler = personIndex => {
-        // copy von persons machen -> immutable
-        // const persons = this.state.persons.slice(); // old way
         const persons = [...this.state.persons]; // ES6 way
         persons.splice(personIndex, 1);
         this.setState({persons: persons})
@@ -26,8 +23,6 @@ class App extends Component {
             return p.id === id;
         })
 
-        // copy -> immutable
-        // const person = Object.assign({}, this.state.persons[personIndex]); // old way
         const person = {...this.state.persons[personIndex]}; // ES6 way
 
         person.name = event.target.value;
@@ -49,15 +44,11 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <div>
-                    {this.state.persons.map((person) => {
-                        return <Person
-                                key={person.id}
-                                name={person.name}
-                                age={person.age}
-                                click={() => this.deletePersonHandler(person.id)}
-                                changed={(event) => this.nameChangedHandler(event, person.id)}
-                            />
-                    })}
+                    <Persons
+                        persons={this.state.persons}
+                        clicked={this.deletePersonHandler}
+                        changed={this.nameChangedHandler}
+                    />
                 </div>
             );
 
