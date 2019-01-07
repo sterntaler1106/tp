@@ -6,6 +6,7 @@ import * as classes from './BuildControls.css';
 interface BuildControlProps {
     ingredientAdded: any; // TODO besseren Type wählen
     ingredientRemoved: any; // TODO besseren Type wählen
+    disabled: any; // TODO besseren Typ wählen
 }
 
 const controls = [
@@ -22,6 +23,7 @@ const buildControls = (props: BuildControlProps) => (
             label={ctrl.label}
             added={() => props.ingredientAdded(ctrl.type)}
             removed={() => props.ingredientRemoved(ctrl.type)}
+            disabled={props.disabled[ctrl.type]}
         />)}
     </div>
 );
