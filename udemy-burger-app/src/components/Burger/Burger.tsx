@@ -9,6 +9,8 @@ interface BurgerProps {
 
 // TODO: Duplication von Interface verhindern
 interface Ingredients {
+    [key: string]: number;
+
     salad: number;
     bacon: number;
     cheese: number;
@@ -19,7 +21,7 @@ const burger = (props: BurgerProps) => {
     // TODO was ist der bessere Typ als any in diesem Fall?
     let transformedIngredients: any = Object.keys(props.ingredients)
         .map(igKey => {
-            return [...Array((props.ingredients as any)[igKey])].map((_, i) => { // TODO index signature nochmal nachlesen
+            return [...Array(props.ingredients[igKey])].map((_, i) => {
                 return <BurgerIngredient key={igKey + i} type={igKey}/>
             })
         })
