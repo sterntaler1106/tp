@@ -77,7 +77,7 @@ module.exports = function (webpackEnv) {
                 ),
             },
             {
-                loader: require.resolve('css-loader'),
+                loader: require.resolve('typings-for-css-modules-loader'),
                 options: cssOptions,
             },
             {
@@ -397,6 +397,8 @@ module.exports = function (webpackEnv) {
                                 modules: true,
                                 localIdentName: '[name]__[local]__[hash:base64:5]',
                                 sourceMap: isEnvProduction && shouldUseSourceMap,
+                                camelCase: true,
+                                namedExport: true,
                             }),
                             // Don't consider CSS imports dead code even if the
                             // containing package claims to have no side effects.
