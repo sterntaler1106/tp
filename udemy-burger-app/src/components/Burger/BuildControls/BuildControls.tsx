@@ -8,6 +8,7 @@ interface BuildControlProps {
     ingredientRemoved: any; // TODO besseren Type wählen
     disabled: any; // TODO besseren Typ wählen
     price: number;
+    purchasable: boolean;
 }
 
 const controls = [
@@ -27,6 +28,11 @@ const buildControls = (props: BuildControlProps) => (
             removed={() => props.ingredientRemoved(ctrl.type)}
             disabled={props.disabled[ctrl.type]}
         />)}
+        <button
+            className={classes.OrderButton}
+            disabled={!props.purchasable}
+        >ORDER NOW
+        </button>
     </div>
 );
 

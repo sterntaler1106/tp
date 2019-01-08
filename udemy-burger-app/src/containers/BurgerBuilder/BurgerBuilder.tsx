@@ -11,6 +11,7 @@ interface BurgerBuilderProps {
 interface BurgerBuilderState {
     ingredients: Ingredients;
     totalPrice: number;
+    purchasable: boolean;
 }
 
 // TODO: Duplication von Interface verhindern
@@ -43,7 +44,19 @@ class BurgerBuilder extends React.Component<BurgerBuilderProps, BurgerBuilderSta
             cheese: 0,
             meat: 0,
         },
-        totalPrice: 4
+        totalPrice: 4,
+        purchasable: false,
+    }
+
+    updatePurchasableState(ingredients: Ingredients) {
+        const sum = Object.keys(ingredients)
+            .map(igKey => {
+                return ingredients[igKey]
+            })
+            .reduce((sum, el) => {
+                return sum + el;
+            }, 0);
+        this.setState({purchasable: sum > 0});
     }
 
     addIngredientHandler = (type: string) => {
@@ -58,6 +71,7 @@ class BurgerBuilder extends React.Component<BurgerBuilderProps, BurgerBuilderSta
         const newPrice = oldPrice + priceAddition;
 
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.updatePurchasableState(updatedIngredients);
     }
 
     removeIngredientHandler = (type: string) => {
@@ -75,6 +89,7 @@ class BurgerBuilder extends React.Component<BurgerBuilderProps, BurgerBuilderSta
         const newPrice = oldPrice - priceDeduction;
 
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.updatePurchasableState(updatedIngredients);
     }
 
     render() {
@@ -91,6 +106,7 @@ class BurgerBuilder extends React.Component<BurgerBuilderProps, BurgerBuilderSta
                     ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disabledInfo}
+                    purchasable={this.state.purchasable}
                     price={this.state.totalPrice}
                 />
             </Aux>
