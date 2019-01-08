@@ -7,6 +7,7 @@ interface BuildControlProps {
     ingredientAdded: any; // TODO besseren Type wählen
     ingredientRemoved: any; // TODO besseren Type wählen
     disabled: any; // TODO besseren Typ wählen
+    price: number;
 }
 
 const controls = [
@@ -18,6 +19,7 @@ const controls = [
 
 const buildControls = (props: BuildControlProps) => (
     <div className={classes.BuildControls}>
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
         {controls.map(ctrl => <BuildControl
             key={ctrl.label}
             label={ctrl.label}
