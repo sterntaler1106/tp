@@ -2,8 +2,14 @@ import * as React from 'react';
 
 import Aux from '../../../hoc/Auxiliary';
 import {PropsWithIngredients} from "../../../interfaces/Interfaces";
+import Button from '../../UI/Button/Button'
 
-const orderSummary = (props: PropsWithIngredients) => {
+interface OrderSummaryProps extends PropsWithIngredients {
+    purchaseCancelled: any; // TODO besseren Type wählen
+    purchaseContinued: any; // TODO besseren Type wählen
+}
+
+const orderSummary = (props: OrderSummaryProps) => {
     const ingredientSummary = Object.keys(props.ingredients)
         .map(igKey => {
             return (
@@ -21,6 +27,8 @@ const orderSummary = (props: PropsWithIngredients) => {
                 {ingredientSummary}
             </ul>
             <p>Continue to Checkout</p>
+            <Button buttonType="Danger" clicked={props.purchaseCancelled}>CANCEL</Button>
+            <Button buttonType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
         </Aux>
     );
 };
