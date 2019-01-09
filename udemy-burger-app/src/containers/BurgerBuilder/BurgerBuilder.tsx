@@ -10,6 +10,7 @@ import {Ingredients, PropsWithIngredients} from "../../interfaces/Interfaces";
 interface BurgerBuilderState extends PropsWithIngredients {
     totalPrice: number;
     purchasable: boolean;
+    purchasing: boolean;
 }
 
 interface IngredientPrices extends Ingredients {
@@ -34,6 +35,7 @@ class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
         },
         totalPrice: 4,
         purchasable: false,
+        purchasing: false,
     }
 
     updatePurchasableState(ingredients: Ingredients) {
@@ -80,6 +82,10 @@ class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
         this.updatePurchasableState(updatedIngredients);
     }
 
+    purchaseHandler = () => {
+        this.setState({purchasing: true});
+    }
+
     render() {
         const disabledInfo: any = { // TODO pfui, any
             ...this.state.ingredients
@@ -89,7 +95,7 @@ class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
         }
         return (
             <Aux>
-                <Modal>
+                <Modal show={this.state.purchasing}>
                     <OrderSummary ingredients={this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
@@ -98,6 +104,7 @@ class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disabledInfo}
                     purchasable={this.state.purchasable}
+                    ordered={this.purchaseHandler}
                     price={this.state.totalPrice}
                 />
             </Aux>

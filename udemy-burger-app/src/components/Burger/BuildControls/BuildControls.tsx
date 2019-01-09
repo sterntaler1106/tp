@@ -9,6 +9,7 @@ interface BuildControlProps {
     disabled: any; // TODO besseren Typ wählen
     price: number;
     purchasable: boolean;
+    ordered: any; // TODO besseren Type wählen
 }
 
 const controls = [
@@ -31,6 +32,7 @@ const buildControls = (props: BuildControlProps) => (
         <button
             className={classes.OrderButton}
             disabled={!props.purchasable}
+            onClick={props.ordered}
         >ORDER NOW
         </button>
     </div>
