@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as classes from './Toolbar.css'
+import NavigationItems from '../NavigationItems/NavigationItems'
 import Logo from '../../Logo/Logo'
+
 
 interface ToolbarProps {
 }
@@ -11,7 +13,7 @@ const toolbar = (props: ToolbarProps) => {
             <div>MENU</div>
             <Logo/>
             <nav>
-                ...
+                <NavigationItems/>
             </nav>
         </header>
     );
