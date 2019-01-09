@@ -2,22 +2,9 @@ import * as React from 'react';
 
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import * as classes from './Burger.css'
+import {PropsWithIngredients} from "../../interfaces/Interfaces";
 
-interface BurgerProps {
-    ingredients: Ingredients
-}
-
-// TODO: Duplication von Interface verhindern
-interface Ingredients {
-    [key: string]: number;
-
-    salad: number;
-    bacon: number;
-    cheese: number;
-    meat: number;
-}
-
-const burger = (props: BurgerProps) => {
+const burger = (props: PropsWithIngredients) => {
     // TODO was ist der bessere Typ als any in diesem Fall?
     let transformedIngredients: any = Object.keys(props.ingredients)
         .map(igKey => {

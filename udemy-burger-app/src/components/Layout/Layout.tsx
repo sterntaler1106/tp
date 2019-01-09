@@ -2,12 +2,9 @@ import * as React from 'react'
 
 import Aux from '../../hoc/Auxiliary';
 import * as classes from './Layout.css';
+import {PropsWithChildren} from "../../interfaces/Interfaces";
 
-interface LayoutProps {
-    children: React.ReactNode;
-}
-
-const layout = (props: LayoutProps) => (
+const layout = (props: PropsWithChildren) => (
         <Aux>
             <div>Toolbar, SideDrawer, Backdrop</div>
             < main className={classes.Content}>

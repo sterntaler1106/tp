@@ -3,25 +3,13 @@ import * as React from "react";
 import Aux from '../../hoc/Auxiliary'
 import Burger from "../../components/Burger/Burger";
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
+import {Ingredients, PropsWithIngredients} from "../../interfaces/Interfaces";
 
-interface BurgerBuilderProps {
-
-}
-
-interface BurgerBuilderState {
-    ingredients: Ingredients;
+interface BurgerBuilderState extends PropsWithIngredients {
     totalPrice: number;
     purchasable: boolean;
-}
-
-// TODO: Duplication von Interface verhindern
-interface Ingredients {
-    [key: string]: number;
-
-    salad: number;
-    bacon: number;
-    cheese: number;
-    meat: number;
 }
 
 interface IngredientPrices extends Ingredients {
@@ -35,7 +23,7 @@ const INGREDIENT_PRICES: IngredientPrices = {
     bacon: 0.7
 }
 
-class BurgerBuilder extends React.Component<BurgerBuilderProps, BurgerBuilderState> {
+class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
     // TODO aus den Types ein enum machen?
     state: BurgerBuilderState = {
         ingredients: {
@@ -101,6 +89,9 @@ class BurgerBuilder extends React.Component<BurgerBuilderProps, BurgerBuilderSta
         }
         return (
             <Aux>
+                <Modal>
+                    <OrderSummary ingredients={this.state.ingredients}/>
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls
                     ingredientAdded={this.addIngredientHandler}
