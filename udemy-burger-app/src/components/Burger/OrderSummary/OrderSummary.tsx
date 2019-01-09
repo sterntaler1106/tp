@@ -7,6 +7,7 @@ import Button from '../../UI/Button/Button'
 interface OrderSummaryProps extends PropsWithIngredients {
     purchaseCancelled: any; // TODO besseren Type wählen
     purchaseContinued: any; // TODO besseren Type wählen
+    price: number;
 }
 
 const orderSummary = (props: OrderSummaryProps) => {
@@ -26,6 +27,7 @@ const orderSummary = (props: OrderSummaryProps) => {
             <ul>
                 {ingredientSummary}
             </ul>
+            <p><strong>Total Price: {props.price.toFixed(2)}</strong></p>
             <p>Continue to Checkout</p>
             <Button buttonType="Danger" clicked={props.purchaseCancelled}>CANCEL</Button>
             <Button buttonType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
