@@ -6,15 +6,31 @@ import * as classes from './Layout.css';
 import {PropsWithChildren} from "../../interfaces/Interfaces";
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
 
-const layout = (props: PropsWithChildren) => (
-    <Aux>
-        <Toolbar/>
-        <SideDrawer/>
-        < main className={classes.Content}>
-            {props.children}
-        </main>
-    </Aux>
-);
+interface LayoutState {
+    showSideDrawer: boolean;
+}
 
-export default layout;
+class Layout extends React.Component<PropsWithChildren, LayoutState> {
+    state = {
+        showSideDrawer: true,
+    }
+
+    sideDrawerClosedHandler = () => {
+        this.setState({showSideDrawer: false});
+    }
+
+    render() {
+        return (
+            <Aux>
+                <Toolbar/>
+                <SideDrawer closed={this.sideDrawerClosedHandler} openBackdrop={this.state.showSideDrawer}/>
+                < main className={classes.Content}>
+                    {this.props.children}
+                </main>
+            </Aux>
+        )
+    }
+}
+
+export default Layout;
 
