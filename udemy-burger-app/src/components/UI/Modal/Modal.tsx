@@ -11,7 +11,7 @@ interface ModalProps extends PropsWithChildren {
 
 class Modal extends React.Component<ModalProps, {}> {
     shouldComponentUpdate(nextProps: Readonly<ModalProps>, nextState: Readonly<{}>, nextContext: any): boolean {
-        return nextProps.show != this.props.show;
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
 
     render() {

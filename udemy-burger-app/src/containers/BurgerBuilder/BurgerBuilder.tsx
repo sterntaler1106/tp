@@ -1,16 +1,19 @@
 import * as React from "react";
+import axios from '../../axios-orders';
 
-import Aux from '../../hoc/Auxiliary/Auxiliary'
+import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Burger from "../../components/Burger/Burger";
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from "../../components/UI/Modal/Modal";
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import {Ingredients, PropsWithIngredients} from "../../interfaces/Interfaces";
 
 interface BurgerBuilderState extends PropsWithIngredients {
     totalPrice: number;
     purchasable: boolean;
     purchasing: boolean;
+    loading: boolean;
 }
 
 interface IngredientPrices extends Ingredients {
@@ -36,6 +39,7 @@ class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
         totalPrice: 4,
         purchasable: false,
         purchasing: false,
+        loading: false,
     }
 
     updatePurchasableState(ingredients: Ingredients) {
@@ -91,7 +95,28 @@ class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
     }
 
     purchaseContinueHandler = () => {
-        alert('You continue')
+        this.setState({loading: true});
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice, // in real app -> recalculate price on server
+            customer: {
+                name: 'Esther Fuhrmann',
+                address: {
+                    street: 'Teststreet 1',
+                    zipCode: '12345',
+                    country: 'Germany',
+                },
+                email: 'test@test.com'
+            },
+            deliveryMethod: 'fastest',
+        }
+        axios.post('/orders.json', order) // .json nur für Firebase
+            .then(response => {
+                this.setState({loading: false, purchasing: false})
+            })
+            .catch(error => {
+                this.setState({loading: false, purchasing: false})
+            });
     }
 
     render() {
@@ -101,15 +126,21 @@ class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
+
+        let orderSummary = <OrderSummary
+            ingredients={this.state.ingredients}
+            purchaseCancelled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+            price={this.state.totalPrice}
+        />;
+        if (this.state.loading) {
+            orderSummary = <Spinner/>;
+        }
+
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary
-                        ingredients={this.state.ingredients}
-                        purchaseCancelled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler}
-                        price={this.state.totalPrice}
-                    />
+                    {orderSummary}
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls
