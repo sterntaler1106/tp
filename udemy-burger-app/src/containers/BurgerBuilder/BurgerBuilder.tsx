@@ -9,6 +9,8 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import {Ingredients, PropsWithIngredients} from "../../interfaces/Interfaces";
 
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+
 interface BurgerBuilderState extends PropsWithIngredients {
     totalPrice: number;
     purchasable: boolean;
@@ -156,4 +158,4 @@ class BurgerBuilder extends React.Component<{}, BurgerBuilderState> {
     }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
