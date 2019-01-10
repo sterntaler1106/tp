@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classes from './Modal.css';
 import {PropsWithChildren} from "../../../interfaces/Interfaces";
-import Aux from '../../../hoc/Auxiliary'
+import Aux from '../../../hoc/Auxiliary/Auxiliary'
 import Backdrop from '../Backdrop/Backdrop'
 
 interface ModalProps extends PropsWithChildren {

@@ -1,4 +1,4 @@
-import {PropsWithChildren} from "../interfaces/Interfaces";
+import {PropsWithChildren} from "../../interfaces/Interfaces";
 
 const aux = (props: PropsWithChildren) => props.children;
 

@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-import Aux from '../../hoc/Auxiliary';
-import Toolbar from '../Navigation/Toolbar/Toolbar'
+import Aux from '../Auxiliary/Auxiliary';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import * as classes from './Layout.css';
 import {PropsWithChildren} from "../../interfaces/Interfaces";
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
 
 interface LayoutState {
     showSideDrawer: boolean;

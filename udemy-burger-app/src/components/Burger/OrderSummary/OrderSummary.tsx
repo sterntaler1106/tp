@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Aux from '../../../hoc/Auxiliary';
+import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import {PropsWithIngredients} from "../../../interfaces/Interfaces";
 import Button from '../../UI/Button/Button'
 
