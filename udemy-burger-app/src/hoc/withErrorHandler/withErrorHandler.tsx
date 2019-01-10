@@ -15,7 +15,7 @@ const withErrorHandler = (WrappedComponent: any, axios: AxiosInstance) => {
             error: {message: null}
         }
 
-        componentDidMount(): void {
+        componentWillMount(): void {
             axios.interceptors.request.use(req => {
                 this.setState({error: {message: null}});
                 return req;
