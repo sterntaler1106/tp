@@ -13,16 +13,28 @@ const withErrorHandler = (WrappedComponent: any, axios: AxiosInstance) => {
 
         state = {
             error: {message: null}
-        }
+        };
+        reqInterceptor: number | undefined;
+        resInterceptor: number | undefined;
+
 
         componentWillMount(): void {
-            axios.interceptors.request.use(req => {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({error: {message: null}});
                 return req;
             });
-            axios.interceptors.response.use(res => res, error => {
+            this.resInterceptor = axios.interceptors.response.use(res => res, error => {
                 this.setState({error: error});
             });
+        }
+
+        componentWillUnmount(): void {
+            if (this.reqInterceptor !== undefined) {
+                axios.interceptors.request.eject(this.reqInterceptor);
+            }
+            if (this.resInterceptor !== undefined) {
+                axios.interceptors.response.eject(this.resInterceptor);
+            }
         }
 
         errorConfirmedHandler = () => {
