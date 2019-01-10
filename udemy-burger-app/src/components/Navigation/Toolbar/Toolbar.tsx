@@ -4,15 +4,14 @@ import NavigationItems from '../NavigationItems/NavigationItems'
 import Logo from '../../Logo/Logo'
 
 
-interface ToolbarProps {
-}
-
-const toolbar = (props: ToolbarProps) => {
+const toolbar = () => {
     return (
         <header className={classes.Toolbar}>
             <div>MENU</div>
-            <Logo height="80%"/>
-            <nav>
+            <div className={classes.Logo}>
+                <Logo/>
+            </div>
+            <nav className={classes.DesktopOnly}>
                 <NavigationItems/>
             </nav>
         </header>
