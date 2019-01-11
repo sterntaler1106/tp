@@ -5,6 +5,8 @@ import Button from "../../UI/Button/Button";
 import * as classes from './CheckoutSummary.css';
 
 interface CheckoutSummaryProps extends WithIngredients {
+    onCheckoutCancelled: any // TODO besserer Type
+    onCheckoutContinued: any // TODO besserer Type
 }
 
 const checkoutSummary = (props: CheckoutSummaryProps) => {
@@ -16,12 +18,12 @@ const checkoutSummary = (props: CheckoutSummaryProps) => {
             </div>
             <Button
                 buttonType={"Danger"}
-                clicked={console.log}
+                clicked={props.onCheckoutCancelled}
             >CANCEL</Button>
             <Button
                 buttonType={"Success"}
-                clicked={console.log}
-            >CANCEL</Button>
+                clicked={props.onCheckoutContinued}
+            >CONTINUE</Button>
         </div>
     );
 };
