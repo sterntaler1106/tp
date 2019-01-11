@@ -5,6 +5,7 @@ import {Route, RouteComponentProps} from "react-router-dom";
 import ContactData from "./ContactData/ContactData";
 
 interface CheckoutState extends WithIngredients {
+    totalPrice: number,
 }
 
 class Checkout extends React.Component<RouteComponentProps, CheckoutState> {
@@ -14,7 +15,8 @@ class Checkout extends React.Component<RouteComponentProps, CheckoutState> {
             meat: 1,
             bacon: 1,
             cheese: 1,
-        }
+        },
+        totalPrice: 0,
     }
 
     getAsNumber(value: string | null): number {
@@ -34,7 +36,7 @@ class Checkout extends React.Component<RouteComponentProps, CheckoutState> {
             bacon: this.getAsNumber(query.get('bacon')),
         }
 
-        this.setState({ingredients: ingredients});
+        this.setState({ingredients: ingredients, totalPrice: this.getAsNumber(query.get('price'))});
     }
 
     checkoutCancelledHandler = () => {
@@ -53,7 +55,11 @@ class Checkout extends React.Component<RouteComponentProps, CheckoutState> {
                     onCheckoutCancelled={this.checkoutCancelledHandler}
                     onCheckoutContinued={this.checkoutContinuedHandler}
                 />
-                <Route path={this.props.match.path + '/contact-data'} component={ContactData}/>
+                <Route
+                    path={this.props.match.path + '/contact-data'}
+                    render={(props: RouteComponentProps) => (
+                        <ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props}/>)}
+                />
             </div>
         );
     }
