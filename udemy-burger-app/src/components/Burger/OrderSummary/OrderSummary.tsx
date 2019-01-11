@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
-import {PropsWithIngredients} from "../../../interfaces/Interfaces";
+import {WithIngredients} from "../../../interfaces/Interfaces";
 import Button from '../../UI/Button/Button'
 
-interface OrderSummaryProps extends PropsWithIngredients {
+interface OrderSummaryProps extends WithIngredients {
     purchaseCancelled: any; // TODO besseren Type wählen
     purchaseContinued: any; // TODO besseren Type wählen
     price: number;

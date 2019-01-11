@@ -13,6 +13,6 @@ export interface PropsWithChildren {
     children: any;
 }
 
-export interface PropsWithIngredients {
+export interface WithIngredients {
     ingredients: Ingredients;
 }

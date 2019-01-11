@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import * as classes from './Burger.css'
-import {PropsWithIngredients} from "../../interfaces/Interfaces";
+import {WithIngredients} from "../../interfaces/Interfaces";
 
-const burger = (props: PropsWithIngredients) => {
+const burger = (props: WithIngredients) => {
     // TODO was ist der bessere Typ als any in diesem Fall?
     let transformedIngredients: any = Object.keys(props.ingredients)
         .map(igKey => {
