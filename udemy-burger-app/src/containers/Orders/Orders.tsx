@@ -2,10 +2,17 @@ import * as React from 'react';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import {Ingredients} from "../../interfaces/Interfaces";
 
 interface OrdersState {
-    orders: any; // TODO any nicht ideal
+    orders: OrderData[];
     loading: boolean;
+}
+
+interface OrderData {
+    id: string;
+    ingredients: Ingredients;
+    price: number;
 }
 
 class Orders extends React.Component<{}, OrdersState> {
@@ -18,14 +25,13 @@ class Orders extends React.Component<{}, OrdersState> {
     componentDidMount(): void {
         axios.get('/orders.json')
             .then(res => {
-                const fetchedOrders = [];
+                const fetchedOrders: OrderData[] = [];
                 for (let key in res.data) {
                     fetchedOrders.push({
                         ...res.data[key],
                         id: key
                     });
                 }
-
                 this.setState({loading: false, orders: fetchedOrders})
             })
             .catch(error => {
@@ -36,8 +42,13 @@ class Orders extends React.Component<{}, OrdersState> {
     render() {
         return (
             <div>
-                <Order/>
-                <Order/>
+                {this.state.orders.map((order: OrderData) => {
+                    return <Order
+                        key={order.id}
+                        ingredients={order.ingredients}
+                        price={order.price}
+                    />
+                })};
             </div>
         );
     }
